@@ -1,22 +1,14 @@
-const fs = require('fs');
 const express = require('express');
+const morgan = require('morgan');
+const tourRouter = require('./routes/tourRoutes');
+const userRouter = require('./routes/userRoutes');
 
 const app = express();
 
-const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
-);
+app.use(morgan('dev'));
+app.use(express.json());
 
-app.get('/api/v1/tours', (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    data: {
-      tours: tours
-    }
-  });
-});
+app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
 
-const port = 3000;
-app.listen(port, () => {
-  console.log(`App running on port ${port}`);
-});
+module.exports = app;
