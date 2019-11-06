@@ -1,3 +1,4 @@
+/* eslint-disable node/no-unsupported-features/es-syntax */
 const fs = require('fs');
 
 let tours = JSON.parse(
@@ -16,7 +17,7 @@ exports.checkBodyRequest = (req, res, next) => {
 
 exports.checkID = (req, res, next, val) => {
   let found = false;
-  for (let i = 0; i < tours.length; i++) {
+  for (let i = 0; i < tours.length; i + 1) {
     if (tours[i].id === val * 1) {
       found = true;
       break;
@@ -65,8 +66,6 @@ exports.createTour = (req, res) => {
     JSON.stringify(tours),
     err => {
       if (err) {
-        console.log(err);
-
         return res
           .status(400)
           .json({ status: 'Fail', message: 'Fail to create a new tour' });
