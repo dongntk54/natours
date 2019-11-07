@@ -5,13 +5,12 @@ const {
   getTour,
   updateTour,
   deleteTour,
-  checkID,
   checkBodyRequest
 } = require('../controllers/tourController');
 
 const tourRouter = express.Router();
 
-tourRouter.param('id', checkID);
+// tourRouter.param('id', checkID);
 
 tourRouter
   .route('/')

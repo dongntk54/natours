@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "set NODE_ENV=Dev& nodemon server.js",
-    "start-prod": "set NODE_ENV=Prod& nodemon server.js"
+    "start": "export NODE_ENV=Dev&& nodemon server.js",
+    "start-prod": "export NODE_ENV=Prod&& nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "4",
+    "mongoose": "5",
     "morgan": "^1.9.1"
   },
   "devDependencies": {

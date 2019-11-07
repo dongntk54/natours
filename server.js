@@ -1,4 +1,5 @@
 const dotenv = require('dotenv');
+const mongoose = require('mongoose');
 
 if (process.env.NODE_ENV === 'Dev') {
   dotenv.config({
@@ -9,6 +10,21 @@ if (process.env.NODE_ENV === 'Dev') {
     path: './Prod.env'
   });
 }
+
+const DB = process.env.DATABASE.replace(
+  '<PASSWORD>',
+  process.env.DATABASE_PASSWORD
+);
+
+mongoose
+  .connect(DB, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  })
+  .then(() => {
+    console.log('DB connection successful!');
+  });
 
 const app = require('./app');
 

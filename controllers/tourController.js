@@ -15,23 +15,23 @@ exports.checkBodyRequest = (req, res, next) => {
   next();
 };
 
-exports.checkID = (req, res, next, val) => {
-  let found = false;
-  for (let i = 0; i < tours.length; i + 1) {
-    if (tours[i].id === val * 1) {
-      found = true;
-      break;
-    }
-  }
-  if (found) {
-    next();
-  } else {
-    res.status(404).json({
-      status: 'fail',
-      message: 'Invalid ID'
-    });
-  }
-};
+// exports.checkID = (req, res, next, val) => {
+//   let found = false;
+//   for (let i = 0; i < tours.length; i + 1) {
+//     if (tours[i].id === val * 1) {
+//       found = true;
+//       break;
+//     }
+//   }
+//   if (found) {
+//     next();
+//   } else {
+//     res.status(404).json({
+//       status: 'fail',
+//       message: 'Invalid ID'
+//     });
+//   }
+// };
 
 exports.getAllTours = (req, res) => {
   res.status(200).json({
