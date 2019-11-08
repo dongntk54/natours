@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "export NODE_ENV=Dev&& nodemon server.js",
-    "start-prod": "export NODE_ENV=Prod&& nodemon server.js"
+    "start-prod": "export NODE_ENV=Prod&& nodemon server.js",
+    "import-dev-data": "export NODE_ENV=Dev&& node ./dev-data/data/import-dev-data.js --import",
+    "delete-dev-data": "export NODE_ENV=Dev&& node ./dev-data/data/import-dev-data.js --delete"
   },
   "keywords": [],
   "author": "",

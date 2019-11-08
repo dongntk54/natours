@@ -1,10 +1,13 @@
 /* eslint-disable node/no-unsupported-features/es-syntax */
-const fs = require('fs');
 const Tour = require('../models/tourModel');
 
 exports.getAllTours = async (req, res) => {
+  const query = { ...req.query };
+  const excludedFields = ['page', 'sort', 'limit', 'fields'];
+  excludedFields.forEach(field => delete query[field]);
+
   try {
-    const allTours = await Tour.find();
+    const allTours = await Tour.find(query);
     res.status(200).json({
       status: 'success',
       results: allTours.length,
@@ -19,7 +22,7 @@ exports.getAllTours = async (req, res) => {
 
 exports.getTour = async (req, res) => {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
     const tour = await Tour.findById(id);
 
     res.status(200).json({
@@ -49,11 +52,13 @@ exports.createTour = async (req, res) => {
 
 exports.updateTour = async (req, res) => {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
+    console.log(id);
     const updatedTour = await Tour.findByIdAndUpdate(id, req.body, {
-      new: true
+      new: true,
+      runValidators: true
     });
-    res.status(20).json({
+    res.status(200).json({
       status: 'success',
       data: {
         tour: updatedTour
@@ -64,9 +69,18 @@ exports.updateTour = async (req, res) => {
   }
 };
 
-exports.deleteTour = (req, res) => {
-  res.status(204).json({
-    status: 'success',
-    data: null
-  });
+exports.deleteTour = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Tour.findByIdAndDelete(id);
+
+    res.status(204).json({
+      status: 'success',
+      data: {
+        tour: null
+      }
+    });
+  } catch (err) {
+    res.status(404).json({ status: 'fail', message: err });
+  }
 };
