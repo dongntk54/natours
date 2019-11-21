@@ -21,7 +21,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required: [true, 'Please provide a valid password'],
-    minlength: 8
+    minlength: 8,
+    select: false
   },
   passwordConfirm: {
     type: String,
@@ -32,7 +33,8 @@ const userSchema = new mongoose.Schema({
         return value === this.password;
       },
       message: 'Confirm password is mismatch'
-    }
+    },
+    select: false
   }
 });
 
